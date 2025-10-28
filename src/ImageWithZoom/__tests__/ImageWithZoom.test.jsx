@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { render, screen, fireEvent, act, waitFor } from '@testing-library/react';
 import clone from 'clone';
 import components from '../../helpers/component-config';
 import ImageWithZoom from '../ImageWithZoom';
@@ -79,17 +79,40 @@ describe('<ImageWithZoom />', () => {
       });
 
       it('should not render loading spinner when image loads successfully', async () => {
+        // Mock the Image component's initImage method to simulate successful loading
+        const Image = require('../../Image/Image').default;
+        const originalInitImage = Image.prototype.initImage;
+        
+        jest.spyOn(Image.prototype, 'initImage').mockImplementation(function() {
+          // Set loading state first
+          this.setState({ imageStatus: require('../../helpers').LOADING });
+          
+          // Create a minimal mock image
+          this.image = {
+            addEventListener: jest.fn(),
+            removeEventListener: jest.fn(),
+            src: '',
+          };
+          
+          // Immediately simulate successful loading
+          setTimeout(() => {
+            this.handleImageLoad({ target: this.image });
+          }, 0);
+        });
+
         render(
           <CarouselProvider naturalSlideWidth={100} naturalSlideHeight={50} totalSlides={1}>
             <ImageWithZoom src="test.jpg" />
           </CarouselProvider>
         );
-        // Simulate image load by finding and triggering load event on the image
-        const image = document.querySelector('img');
-        expect(image).toBeInTheDocument();
-        fireEvent.load(image);
-        // Loading state should be gone after image loads
-        expect(document.querySelector('.carousel__image-loading-spinner-container')).not.toBeInTheDocument();
+        
+        // Wait for image to load
+        await waitFor(() => {
+          expect(document.querySelector('.carousel__image-loading-spinner-container')).not.toBeInTheDocument();
+        });
+        
+        // Cleanup
+        Image.prototype.initImage.mockRestore();
       });
     });
     describe('handleImage callback', () => {
