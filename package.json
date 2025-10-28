@@ -43,7 +43,7 @@
   "typings": "typings/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/whichdigital/pure-react-carousel.git"
+    "url": "git+https://github.com/whichdigital/pure-react-carousel.git"
   },
   "author": "Matthew Toledo, with updates by Simon Matthews",
   "license": "MIT",
