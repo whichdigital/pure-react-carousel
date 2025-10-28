@@ -36,13 +36,13 @@ const ButtonPlay = class ButtonPlay extends React.PureComponent {
 
   render() {
     const {
-      carouselStore,
-      children,
+      carouselStore: _carouselStore,
+      children: _children,
       childrenPaused,
       childrenPlaying,
       className,
       isPlaying,
-      onClick,
+      onClick: _onClick,
       ...props
     } = this.props;
 

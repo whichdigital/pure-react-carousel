@@ -86,11 +86,10 @@ describe('<ImageWithZoom />', () => {
         );
         // Simulate image load by finding and triggering load event on the image
         const image = document.querySelector('img');
-        if (image) {
-          fireEvent.load(image);
-          // Loading state should be gone after image loads
-          expect(document.querySelector('.carousel__image-loading-spinner-container')).not.toBeInTheDocument();
-        }
+        expect(image).toBeInTheDocument();
+        fireEvent.load(image);
+        // Loading state should be gone after image loads
+        expect(document.querySelector('.carousel__image-loading-spinner-container')).not.toBeInTheDocument();
       });
     });
     describe('handleImage callback', () => {

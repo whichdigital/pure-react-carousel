@@ -60,3 +60,6 @@ coverage.json
 
 .idea/
 .vscode/
+
+# Rollup configs with newer syntax
+rollup.config.*.js

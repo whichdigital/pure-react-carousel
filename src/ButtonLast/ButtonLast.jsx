@@ -41,11 +41,11 @@ const ButtonLast = class ButtonLast extends React.Component {
 
   render() {
     const {
-      carouselStore,
+      carouselStore: _carouselStore,
       className,
       currentSlide,
       disabled,
-      onClick,
+      onClick: _onClick,
       totalSlides,
       visibleSlides,
       ...props

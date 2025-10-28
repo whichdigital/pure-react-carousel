@@ -1,6 +1,3 @@
-/* eslint {'import/no-named-as-default': 0, 'import/no-named-as-default-member': 0} */
-import React from 'react';
-
 import ButtonBack from '../ButtonBack/ButtonBack';
 import ButtonFirst from '../ButtonFirst/ButtonFirst';
 import ButtonLast from '../ButtonLast/ButtonLast';

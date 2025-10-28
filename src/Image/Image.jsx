@@ -171,7 +171,7 @@ class Image extends React.Component {
     let newFilteredProps = filteredProps;
 
     if (Tag !== 'img') {
-      const { src, alt, ...tempFilteredProps } = filteredProps;
+      const { src, alt: _alt, ...tempFilteredProps } = filteredProps;
       newFilteredProps = tempFilteredProps;
       newStyle = Object.assign({}, style, {
         backgroundImage: `url("${src}")`,
@@ -188,17 +188,17 @@ class Image extends React.Component {
 
   render() {
     const {
-      carouselStore,
-      children,
-      className,
-      hasMasterSpinner,
-      isBgImage,
-      onError,
-      onLoad,
-      renderError,
-      renderLoading,
-      style,
-      tag,
+      carouselStore: _carouselStore,
+      children: _children,
+      className: _className,
+      hasMasterSpinner: _hasMasterSpinner,
+      isBgImage: _isBgImage,
+      onError: _onError,
+      onLoad: _onLoad,
+      renderError: _renderError,
+      renderLoading: _renderLoading,
+      style: _style,
+      tag: _tag,
       ...filteredProps
     } = this.props;
 

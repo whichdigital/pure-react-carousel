@@ -63,14 +63,14 @@ export default class ButtonBack extends React.Component {
 
   render() {
     const {
-      carouselStore,
+      carouselStore: _carouselStore,
       className,
-      currentSlide,
-      disabled,
-      onClick,
-      step,
-      totalSlides,
-      visibleSlides,
+      currentSlide: _currentSlide,
+      disabled: _disabled,
+      onClick: _onClick,
+      step: _step,
+      totalSlides: _totalSlides,
+      visibleSlides: _visibleSlides,
       infinite,
       ...props
     } = this.props;

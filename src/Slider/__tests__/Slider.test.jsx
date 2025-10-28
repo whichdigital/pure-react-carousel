@@ -1,3 +1,4 @@
+/* eslint-disable jest/no-commented-out-tests */
 import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
 import clone from 'clone';
@@ -1059,7 +1060,8 @@ describe('<Slider />', () => {
     });
     // skipping this test for now v1.8.1
     // note: getting closer - 4/4/2018
-    xit('should still have state.isBeingTouchDragged === true a touch ended but there are still more touches left', () => {
+    // eslint-disable-next-line jest/no-disabled-tests
+    it.skip('should still have state.isBeingTouchDragged === true a touch ended but there are still more touches left', () => {
       const handleOnTouchEnd = jest.spyOn(Slider.prototype, 'handleOnTouchEnd');
       const wrapper = shallow(<Slider {...props} />);
       const instance = wrapper.instance();

@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   ButtonBack, ButtonFirst, ButtonLast, ButtonNext,
   CarouselProvider, DotGroup, ImageWithZoom, Slide, Slider,

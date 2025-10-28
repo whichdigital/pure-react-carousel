@@ -1,6 +1,8 @@
 // This is a development app for local dev work on react-carousel
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import DevelopmentApp from './App/App';
 
-ReactDOM.render(<React.StrictMode><DevelopmentApp /></React.StrictMode>, document.getElementById('app'));
+const container = document.getElementById('app');
+const root = createRoot(container);
+root.render(<React.StrictMode><DevelopmentApp /></React.StrictMode>);

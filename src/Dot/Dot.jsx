@@ -44,8 +44,8 @@ const Dot = class Dot extends React.Component {
 
   render() {
     const {
-      carouselStore, children, className, currentSlide, disabled, onClick, selected, slide,
-      totalSlides, visibleSlides, ...props
+      carouselStore: _carouselStore, children: _children, className, currentSlide, disabled, onClick: _onClick, selected, slide,
+      totalSlides: _totalSlides, visibleSlides, ...props
     } = this.props;
     const defaultSelected = slide >= currentSlide && slide < (currentSlide + visibleSlides);
     const newSelected = typeof selected === 'boolean' ? selected : defaultSelected;

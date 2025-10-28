@@ -64,12 +64,12 @@ const ButtonNext = class ButtonNext extends React.PureComponent {
 
   render() {
     const {
-      carouselStore,
+      carouselStore: _carouselStore,
       className,
       currentSlide,
       disabled,
-      onClick,
-      step,
+      onClick: _onClick,
+      step: _step,
       totalSlides,
       visibleSlides,
       infinite,
