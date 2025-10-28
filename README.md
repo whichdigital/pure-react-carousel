@@ -11,6 +11,9 @@
       src="https://raw.github.com/express-labs/pure-react-carousel/master/dev/media/express-logo.svg?sanitize=true"
     />
   </a>
+
+  Local version updated for React 18 by Which?
+
   <br />
   <p>A highly impartial suite of React components that can be assembled by the consumer to create a responsive and aria compliant carousel with almost no limits on DOM structure or CSS styles.</p>
 
