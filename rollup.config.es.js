@@ -51,7 +51,7 @@ export default {
       exclude: [
         'node_modules/**'
       ],
-      babelHelpers: 'bundled'
+      babelHelpers: 'runtime'
     }),
     replace({
       include: 'src/**',
