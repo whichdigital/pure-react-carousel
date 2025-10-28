@@ -105,7 +105,7 @@
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-serve": "^2.0.3",
     "sass": "^1.79.0",
-    "semantic-release": "^24.0.0",
+    "semantic-release": "^25.0.1",
     "waait": "^1.0.5",
     "watch": "^1.0.2"
   },
