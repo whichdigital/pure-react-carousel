@@ -1,6 +1,6 @@
 {
   "name": "@which/pure-react-carousel",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "private": false,
   "type": "module",
   "description": "A highly impartial suite of React components that can be assembled by the consumer to create a responsive and aria compliant carousel with almost no limits on DOM structure or CSS styles.",
@@ -43,14 +43,14 @@
   "typings": "typings/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/express-labs/pure-react-carousel.git"
+    "url": "https://github.com/whichdigital/pure-react-carousel.git"
   },
-  "author": "Matthew Toledo",
+  "author": "Matthew Toledo, with updates by Simon Matthews",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/express-labs/pure-react-carousel"
+    "url": "https://github.com/whichdigital/pure-react-carousel"
   },
-  "homepage": "https://github.com/express-labs/pure-react-carousel#readme",
+  "homepage": "https://github.com/whichdigital/pure-react-carousel#readme",
   "devDependencies": {
     "@babel/core": "^7.25.0",
     "@babel/eslint-parser": "^7.25.0",
