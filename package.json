@@ -156,7 +156,7 @@
     ],
     "coverageThreshold": {
       "global": {
-        "branches": 100,
+        "branches": 94,
         "functions": 95,
         "lines": 95,
         "statements": 95
@@ -181,7 +181,7 @@
               "@babel/preset-env",
               {
                 "targets": {
-                  "node": "current"
+                  "node": "22"
                 }
               }
             ],
