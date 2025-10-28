@@ -20,7 +20,7 @@
 
 <hr />
 
-[![Build Status](https://github.com/express-labs/pure-react-carousel/actions/workflows/publish.yml/badge.svg)](https://github.com/express-labs/pure-react-carousel/actions/workflows/publish.yml)
+[![Build Status](https://github.com/whichdigital/pure-react-carousel/actions/workflows/release.yml/badge.svg)](https://github.com/whichdigital/pure-react-carousel/actions/workflows/release.yml)
 [![Known Vulnerabilities](https://snyk.io/test/github/express-labs/pure-react-carousel/badge.svg)](https://snyk.io/test/github/express-labs/pure-react-carousel)
 [![version](https://img.shields.io/npm/v/pure-react-carousel.svg?style=flat-square)](https://www.npmjs.com/package/pure-react-carousel)
 [![downloads](https://img.shields.io/npm/dm/pure-react-carousel.svg?style=flat-square)](http://www.npmtrends.com/pure-react-carousel)
