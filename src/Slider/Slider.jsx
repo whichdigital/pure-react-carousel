@@ -690,6 +690,7 @@ Slider.propTypes = {
     style: PropTypes.object,
     totalSlides: PropTypes.number.isRequired,
     touchEnabled: PropTypes.bool.isRequired,
+    preventingVerticalScroll: PropTypes.bool,
     trayProps: PropTypes.shape({
       className: PropTypes.string,
       onClickCapture: PropTypes.func,
@@ -699,6 +700,7 @@ Slider.propTypes = {
       onTouchMove: PropTypes.func,
       onTouchStart: PropTypes.func,
       ref: PropTypes.shape({}),
+      style: PropTypes.object,
     }),
     trayTag: PropTypes.string,
     visibleSlides: PropTypes.number,
