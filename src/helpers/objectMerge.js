@@ -46,7 +46,7 @@ function hasCircularReference(obj, seen = new WeakSet()) {
         }
       }
     }
-  } catch (e) {
+  } catch (_e) {
     // If we can't iterate, assume it's safe
     return false;
   }
