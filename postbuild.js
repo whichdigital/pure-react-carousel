@@ -8,21 +8,15 @@ const baseDir = process.cwd();
 
 replaceInFile({
   files: [
-    'dist/dist/react-carousel.cjs.css',
-    'dist/dist/react-carousel.es.css',
-    'dist/dist/react-carousel.cjs.css.map',
-    'dist/dist/react-carousel.es.css.map',
+    'dist/dist/react-carousel.css',
+    'dist/dist/react-carousel.css.map',
   ],
   from: [
-    /sourceMappingURL=index\.cjs\.css\.map/g, 
-    /sourceMappingURL=index\.es\.css\.map/g,
-    new RegExp(escapeStringRegexp(baseDir),'g'),
+    /sourceMappingURL=index\.css\.map/g,
     new RegExp(escapeStringRegexp(baseDir),'g'),
   ],
   to: [
-    'sourceMappingURL=react-carousel.cjs.css.map',
-    'sourceMappingURL=react-carousel.es.css.map',
-    '..',
+    'sourceMappingURL=react-carousel.css.map',
     '..',
   ],
 });

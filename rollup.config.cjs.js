@@ -14,18 +14,18 @@ export default {
   input: 'src/index.js',
   cache: cache,
   output: {
-    file: 'dist/index.cjs.js',
+    file: 'dist/index.cjs',
     format: 'cjs',
     name: 'pureReactCarousel',
     sourcemap: true,
-    sourcemapFile: path.resolve('dist/main.cjs.js'),
+    sourcemapFile: path.resolve('dist/main.cjs'),
   },
   // exclude peerDependencies from our bundle
   external: Object.keys(pkg.peerDependencies),
   plugins: [
     postcss({
       extensions: ['.css', '.scss'],
-      extract: 'dist/react-carousel.cjs.css',
+      extract: 'dist/react-carousel.css',
       minimize: true,
       modules: {
         // customize the name of the css classes that are created

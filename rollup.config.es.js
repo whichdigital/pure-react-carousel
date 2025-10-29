@@ -14,17 +14,17 @@ export default {
   input: 'src/index.js',
   cache: cache,
   output: {
-    file: 'dist/index.es.js',
+    file: 'dist/index.mjs',
     format: 'es',
     sourcemap: true,
-    sourcemapFile: path.resolve('dist/main.es.js'),
+    sourcemapFile: path.resolve('dist/main.mjs'),
   },
   // exclude peerDependencies from our bundle
   external: Object.keys(pkg.peerDependencies),
   plugins: [
     postcss({
       extensions: ['.css', '.scss'],
-      extract: 'dist/react-carousel.es.css',
+      extract: 'dist/react-carousel.css',
       minimize: true,
       modules: {
         // customize the name of the css classes that are created
