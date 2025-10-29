@@ -12,12 +12,20 @@ export default function WithStore(
 
     constructor(props, context) {
       super(props, context);
+      if (!context) {
+        throw new Error(
+          'WithStore component must be used within a CarouselProvider. ' +
+          'Make sure your component is wrapped in a <CarouselProvider>.'
+        );
+      }
       this.state = mapStateToProps({ ...context.state });
       this.updateStateProps = this.updateStateProps.bind(this);
     }
 
     componentDidMount() {
-      this.context.subscribe(this.updateStateProps);
+      if (this.context) {
+        this.context.subscribe(this.updateStateProps);
+      }
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -26,16 +34,27 @@ export default function WithStore(
     }
 
     componentWillUnmount() {
-      this.context.unsubscribe(this.updateStateProps);
+      if (this.context) {
+        this.context.unsubscribe(this.updateStateProps);
+      }
     }
 
     updateStateProps() {
-      this.setState(mapStateToProps({ ...this.context.state }));
+      if (this.context) {
+        this.setState(mapStateToProps({ ...this.context.state }));
+      }
     }
 
     render() {
       // Use shallow merge for React props to avoid circular references
       const props = { ...this.state, ...this.props };
+
+      if (!this.context) {
+        throw new Error(
+          'WithStore component must be used within a CarouselProvider. ' +
+          'Make sure your component is wrapped in a <CarouselProvider>.'
+        );
+      }
 
       return (
         <WrappedComponent

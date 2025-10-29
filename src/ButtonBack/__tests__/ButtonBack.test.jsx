@@ -216,4 +216,17 @@ describe('<ButtonBack />', () => {
     // If the test gets here without errors, the click handler worked
     expect(button).toBeInTheDocument();
   });
+  
+  it('should throw an error when used outside of CarouselProvider', () => {
+    // Temporarily mock console.error to suppress React error boundary output
+    const originalError = console.error;
+    console.error = jest.fn();
+
+    expect(() => {
+      render(<ButtonBackWithStore>Hello</ButtonBackWithStore>);
+    }).toThrow('WithStore component must be used within a CarouselProvider');
+    
+    // Restore console.error
+    console.error = originalError;
+  });
 });
