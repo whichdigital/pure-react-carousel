@@ -7,6 +7,11 @@ import {
 } from '../helpers';
 import s from './Slider.scss';
 
+// Debug: Log CSS module object to help diagnose issues
+if (process.env.NODE_ENV !== 'production' && (!s || typeof s !== 'object')) {
+  console.warn('CSS modules not loading properly in Slider component. Expected object, got:', typeof s, s);
+}
+
 const Slider = class Slider extends React.Component {
 
   static slideSizeInPx(orientation, sliderTrayWidth, sliderTrayHeight, totalSlides) {
@@ -464,7 +469,7 @@ const Slider = class Slider extends React.Component {
       return (
         <div
           className={cn([
-            s.masterSpinnerContainer,
+            s.masterSpinnerContainer || 'masterSpinnerContainer',
             'carousel__master-spinner-container',
           ])}
         >
@@ -562,26 +567,26 @@ const Slider = class Slider extends React.Component {
     }
 
     const sliderClasses = cn([
-      orientation === 'vertical' ? s.verticalSlider : s.horizontalSlider,
-      !touchEnabled && s.touchDisabled,
+      orientation === 'vertical' ? (s.verticalSlider || 'verticalSlider') : (s.horizontalSlider || 'horizontalSlider'),
+      !touchEnabled && (s.touchDisabled || 'touchDisabled'),
       'carousel__slider',
       orientation === 'vertical' ? 'carousel__slider--vertical' : 'carousel__slider--horizontal',
       className,
     ]);
 
     const trayWrapClasses = cn([
-      s.sliderTrayWrap,
+      s.sliderTrayWrap || 'sliderTrayWrap',
       'carousel__slider-tray-wrapper',
-      orientation === 'vertical' ? s.verticalSlideTrayWrap : s.horizontalTrayWrap,
+      orientation === 'vertical' ? (s.verticalSlideTrayWrap || 'verticalSlideTrayWrap') : (s.horizontalTrayWrap || 'horizontalTrayWrap'),
       orientation === 'vertical' ? 'carousel__slider-tray-wrap--vertical' : 'carousel__slider-tray-wrap--horizontal',
       classNameTrayWrap,
     ]);
 
     const trayClasses = cn([
-      s.sliderTray,
-      classNameAnimation || s.sliderAnimation,
+      s.sliderTray || 'sliderTray',
+      classNameAnimation || (s.sliderAnimation || 'sliderAnimation'),
       'carousel__slider-tray',
-      orientation === 'vertical' ? s.verticalTray : s.horizontalTray,
+      orientation === 'vertical' ? (s.verticalTray || 'verticalTray') : (s.horizontalTray || 'horizontalTray'),
       orientation === 'vertical' ? 'carousel__slider-tray--vertical' : 'carousel__slider-tray--horizontal',
       classNameTray,
     ]);
@@ -597,6 +602,11 @@ const Slider = class Slider extends React.Component {
       subscribeMasterSpinner: _subscribeMasterSpinner2,
       unsubscribeAllMasterSpinner: _unsubscribeAllMasterSpinner2,
       unsubscribeMasterSpinner: _unsubscribeMasterSpinner2,
+      // Additional carousel-specific props that shouldn't be passed to DOM
+      carouselStore: _carouselStore2,
+      masterSpinnerFinished: _masterSpinnerFinished2,
+      slideSize: _slideSize2,
+      slideTraySize: _slideTraySize2,
       ...rest
     } = props;
 
