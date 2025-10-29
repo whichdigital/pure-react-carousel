@@ -13,7 +13,7 @@ import {
 import s from '../../style.scss';
 
 function eventLogger(ev) {
-  // eslint-disable-next-line no-console
+   
   console.log(ev.type, ev.target);
 }
 

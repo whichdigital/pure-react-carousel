@@ -8,7 +8,7 @@ export function cn(a) {
 }
 
 export function randomHexColor() {
-  // eslint-disable-next-line no-bitwise
+   
   return `#${(Math.random() * 0xFFFFFF << 0).toString(16)}`;
 }
 
