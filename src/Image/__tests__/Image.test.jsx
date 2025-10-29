@@ -343,4 +343,34 @@ describe('<Image />', () => {
     
     cleanup();
   });
+
+  it('should throw error for unknown imageStatus in render method', () => {
+    // Mock console.error to prevent error output in tests
+    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    
+    // Create a component with invalid imageStatus to trigger default case
+    const TestImageWithInvalidStatus = () => {
+      const imageRef = React.useRef();
+      
+      React.useEffect(() => {
+        // Force an invalid imageStatus after component mounts
+        if (imageRef.current) {
+          // Set an invalid imageStatus directly on the component instance
+          imageRef.current.setState({ imageStatus: 'INVALID_STATUS' });
+        }
+      }, []);
+      
+      return (
+        <CarouselProvider naturalSlideWidth={100} naturalSlideHeight={50} totalSlides={1}>
+          <Image {...props} ref={imageRef} />
+        </CarouselProvider>
+      );
+    };
+    
+    expect(() => {
+      render(<TestImageWithInvalidStatus />);
+    }).toThrow('unknown value for this.state.imageStatus');
+    
+    consoleSpy.mockRestore();
+  });
 });

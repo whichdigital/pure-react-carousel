@@ -1716,5 +1716,258 @@ describe('<Slider />', () => {
       expect(sliderTray).toHaveStyle('display: flex');
       expect(sliderTray).toHaveStyle('align-items: stretch');
     });
+
+    it('should wrap to first slide when infinite and at max slide with forward movement', () => {
+      // Create a store with currentSlide at maxSlide (totalSlides - visibleSlides = 5 - 2 = 3)
+      props.carouselStore.state.currentSlide = 3;
+      props.carouselStore.state.totalSlides = 5;
+      props.carouselStore.state.visibleSlides = 2;
+      
+      const { container } = render(
+        <CarouselProvider {...props}>
+          <Slider {...props} infinite currentSlide={3} totalSlides={5} visibleSlides={2} />
+        </CarouselProvider>
+      );
+      
+      const sliderTray = container.querySelector('.sliderTray');
+      
+      // Create a very large drag distance that simulates moving forward beyond the last slide
+      const largeDragDistance = 1000; // This should trigger slidesMoved > 0
+      
+      // Simulate touch sequence with large forward movement
+      fireEvent.touchStart(sliderTray, { 
+        targetTouches: [{ screenX: 100, screenY: 100 }] 
+      });
+      fireEvent.touchMove(sliderTray, { 
+        targetTouches: [{ screenX: 100 - largeDragDistance, screenY: 100 }] 
+      });
+      fireEvent.touchEnd(sliderTray, { targetTouches: [] });
+      
+      // The infinite carousel should wrap to slide 0
+      expect(props.carouselStore.state.currentSlide).toBe(0);
+    });
+
+    it('should wrap to last slide when infinite and at first slide with backward movement', () => {
+      // Create a store with currentSlide at 0
+      props.carouselStore.state.currentSlide = 0;
+      props.carouselStore.state.totalSlides = 5;
+      props.carouselStore.state.visibleSlides = 2;
+      
+      const { container } = render(
+        <CarouselProvider {...props}>
+          <Slider {...props} infinite currentSlide={0} totalSlides={5} visibleSlides={2} />
+        </CarouselProvider>
+      );
+      
+      const sliderTray = container.querySelector('.sliderTray');
+      
+      // Create a very large drag distance that simulates moving backward from the first slide
+      const largeDragDistance = 1000; // This should trigger slidesMoved < 0
+      
+      // Simulate touch sequence with large backward movement
+      fireEvent.touchStart(sliderTray, { 
+        targetTouches: [{ screenX: 100, screenY: 100 }] 
+      });
+      fireEvent.touchMove(sliderTray, { 
+        targetTouches: [{ screenX: 100 + largeDragDistance, screenY: 100 }] 
+      });
+      fireEvent.touchEnd(sliderTray, { targetTouches: [] });
+      
+      // The infinite carousel should wrap to maxSlide (totalSlides - visibleSlides = 3)
+      expect(props.carouselStore.state.currentSlide).toBe(3);
+    });
+
+    it('should cover handleDocumentScroll when touchEnabled is false', () => {
+      const { container } = render(
+        <CarouselProvider {...props}>
+          <Slider {...props} touchEnabled={false} lockOnWindowScroll />
+        </CarouselProvider>
+      );
+      
+      // Simulate document scrolling when touchEnabled is false
+      fireEvent.scroll(window);
+      
+      // The component should still render properly
+      expect(container.querySelector('.sliderTray')).toBeInTheDocument();
+    });
+
+    it('should cover lockScroll with actual scrollParent', () => {
+      // Create a mock element with scroll capabilities
+      const mockScrollParent = document.createElement('div');
+      mockScrollParent.style.overflow = 'scroll';
+      mockScrollParent.style.height = '200px';
+      document.body.appendChild(mockScrollParent);
+      
+      // The GetScrollParent will be used internally by the component
+      
+      const { container } = render(
+        <CarouselProvider {...props}>
+          <Slider {...props} orientation="vertical" />
+        </CarouselProvider>
+      );
+      
+      const sliderTray = container.querySelector('.sliderTray');
+      
+      // Simulate page scroll lock scenario by triggering touch on vertical slider
+      fireEvent.touchStart(sliderTray, { 
+        targetTouches: [{ screenX: 100, screenY: 100 }] 
+      });
+      
+      // Component should still render successfully
+      expect(sliderTray).toBeInTheDocument();
+      
+      // Clean up
+      document.body.removeChild(mockScrollParent);
+    });
+
+    it('should cover unlockScroll with scrollParent', () => {
+      // Create a mock element with scroll capabilities
+      const mockScrollParent = document.createElement('div');
+      mockScrollParent.style.overflow = 'hidden';
+      mockScrollParent.style.height = '200px';
+      document.body.appendChild(mockScrollParent);
+      
+      const { container } = render(
+        <CarouselProvider {...props}>
+          <Slider {...props} orientation="vertical" />
+        </CarouselProvider>
+      );
+      
+      const sliderTray = container.querySelector('.sliderTray');
+      
+      // Simulate touch sequence that would trigger lock/unlock scroll
+      fireEvent.touchStart(sliderTray, { 
+        targetTouches: [{ screenX: 100, screenY: 100 }] 
+      });
+      fireEvent.touchEnd(sliderTray, { targetTouches: [] });
+      
+      // Component should still render successfully after unlock
+      expect(sliderTray).toBeInTheDocument();
+      
+      // Clean up
+      document.body.removeChild(mockScrollParent);
+    });
+
+    it('should cover RTL direction support', () => {
+      // Create a mock carousel element with RTL direction
+      const mockCarouselElement = document.createElement('div');
+      mockCarouselElement.className = 'carousel';
+      mockCarouselElement.style.direction = 'rtl';
+      document.body.appendChild(mockCarouselElement);
+      
+      // Mock closest method to return our RTL element
+      const originalClosest = global.Element.prototype.closest;
+      global.Element.prototype.closest = jest.fn(() => mockCarouselElement);
+      
+      const { container } = render(
+        <CarouselProvider {...props}>
+          <Slider {...props} />
+        </CarouselProvider>
+      );
+      
+      const sliderTray = container.querySelector('.sliderTray');
+      
+      // Simulate touch movement that would use RTL calculation
+      fireEvent.touchStart(sliderTray, { 
+        targetTouches: [{ screenX: 100, screenY: 100 }] 
+      });
+      fireEvent.touchMove(sliderTray, { 
+        targetTouches: [{ screenX: 50, screenY: 100 }] 
+      });
+      
+      expect(sliderTray).toBeInTheDocument();
+      
+      // Restore original method and clean up
+      global.Element.prototype.closest = originalClosest;
+      document.body.removeChild(mockCarouselElement);
+    });
+
+    it('should cover the case when element has no closest carousel parent', () => {
+      // Mock closest method to return null (no carousel parent)
+      const originalClosest = global.Element.prototype.closest;
+      global.Element.prototype.closest = jest.fn(() => null);
+      
+      const { container } = render(
+        <CarouselProvider {...props}>
+          <Slider {...props} />
+        </CarouselProvider>
+      );
+      
+      const sliderTray = container.querySelector('.sliderTray');
+      expect(sliderTray).toBeInTheDocument();
+      
+      // Restore original method
+      global.Element.prototype.closest = originalClosest;
+    });
+
+    it('should cover callCallback when trayProps is undefined', () => {
+      const { container } = render(
+        <CarouselProvider {...props}>
+          <Slider {...props} trayProps={undefined} />
+        </CarouselProvider>
+      );
+      
+      const sliderTray = container.querySelector('.sliderTray');
+      
+      // Fire an event that would call callCallback
+      fireEvent.mouseDown(sliderTray);
+      
+      expect(sliderTray).toBeInTheDocument();
+    });
+
+    it('should cover callCallback when trayProps exists but callback is not a function', () => {
+      const { container } = render(
+        <CarouselProvider {...props}>
+          <Slider {...props} trayProps={{ onMouseDown: 'not-a-function' }} />
+        </CarouselProvider>
+      );
+      
+      const sliderTray = container.querySelector('.sliderTray');
+      
+      // Fire an event that would call callCallback
+      fireEvent.mouseDown(sliderTray);
+      
+      expect(sliderTray).toBeInTheDocument();
+    });
+
+    it('should cover isDocumentScrolling with lockOnWindowScroll false', () => {
+      const { container } = render(
+        <CarouselProvider {...props}>
+          <Slider {...props} lockOnWindowScroll={false} />
+        </CarouselProvider>
+      );
+      
+      const sliderTray = container.querySelector('.sliderTray');
+      
+      // Simulate drag end with lockOnWindowScroll false
+      fireEvent.touchStart(sliderTray, { 
+        targetTouches: [{ screenX: 100, screenY: 100 }] 
+      });
+      fireEvent.touchEnd(sliderTray, { targetTouches: [] });
+      
+      expect(sliderTray).toBeInTheDocument();
+    });
+
+    it('should cover handleDocumentScroll setTimeout callback', () => {
+      jest.useFakeTimers();
+      
+      const { container } = render(
+        <CarouselProvider {...props}>
+          <Slider {...props} lockOnWindowScroll={true} touchEnabled={true} />
+        </CarouselProvider>
+      );
+      
+      const sliderTray = container.querySelector('.sliderTray');
+      
+      // Trigger handleDocumentScroll which sets setTimeout
+      fireEvent.scroll(window);
+      
+      // Fast-forward time to trigger setTimeout callback (line 273-275)
+      jest.advanceTimersByTime(100);
+      
+      expect(sliderTray).toBeInTheDocument();
+      
+      jest.useRealTimers();
+    });
   });
 });

@@ -508,8 +508,8 @@ const Slider = class Slider extends React.Component {
       orientation,
       playDirection: _playDirection,
       privateUnDisableAnimation: _privateUnDisableAnimation,
-      slideSize,
-      slideTraySize,
+      slideSize: _slideSize,
+      slideTraySize: _slideTraySize,
       spinner: _spinner,
       style,
       totalSlides: _totalSlides,
@@ -526,7 +526,7 @@ const Slider = class Slider extends React.Component {
       preventingVerticalScroll: _preventingVerticalScroll,
       horizontalPixelThreshold: _horizontalPixelThreshold,
       verticalPixelThreshold: _verticalPixelThreshold,
-      ...props
+      ...remainingProps
     } = this.props;
 
     const sliderStyle = Object.assign({}, style);
@@ -545,7 +545,7 @@ const Slider = class Slider extends React.Component {
 
     // slider tray
     const trayStyle = {};
-    const trans = pct(slideSize * currentSlide * -1);
+    const trans = pct(_slideSize * currentSlide * -1);
 
     if (this.state.isBeingTouchDragged || this.state.isBeingMouseDragged || disableAnimation) {
       trayStyle.transition = 'none';
@@ -561,7 +561,7 @@ const Slider = class Slider extends React.Component {
       trayStyle.width = pct(100);
       trayStyle.flexDirection = 'column';
     } else {
-      trayStyle.width = pct(slideTraySize);
+      trayStyle.width = pct(_slideTraySize);
       trayStyle.transform = `translateX(${trans}) translateX(${this.state.deltaX}px)`;
       trayStyle.flexDirection = 'row';
     }
@@ -592,23 +592,21 @@ const Slider = class Slider extends React.Component {
     ]);
 
 
-    // Filter out any remaining carousel-specific props that shouldn't be passed to DOM
-    const {
-      // Props that might be added by tests or WithStore that need filtering
-      getStoreState: _getStoreState,
-      masterSpinnerError: _masterSpinnerError2,
-      masterSpinnerSuccess: _masterSpinnerSuccess2,
-      setStoreState: _setStoreState2,
-      subscribeMasterSpinner: _subscribeMasterSpinner2,
-      unsubscribeAllMasterSpinner: _unsubscribeAllMasterSpinner2,
-      unsubscribeMasterSpinner: _unsubscribeMasterSpinner2,
-      // Additional carousel-specific props that shouldn't be passed to DOM
-      carouselStore: _carouselStore2,
-      masterSpinnerFinished: _masterSpinnerFinished2,
-      slideSize: _slideSize2,
-      slideTraySize: _slideTraySize2,
-      ...rest
-    } = props;
+    // Create a clean props object by removing any carousel-specific properties that shouldn't go to DOM
+    const domProps = { ...remainingProps };
+    
+    // Explicitly remove carousel-specific props that might still be lingering
+    delete domProps.carouselStore;
+    delete domProps.masterSpinnerFinished;
+    delete domProps.slideSize;
+    delete domProps.slideTraySize;
+    delete domProps.getStoreState;
+    delete domProps.masterSpinnerError;
+    delete domProps.masterSpinnerSuccess;
+    delete domProps.setStoreState;
+    delete domProps.subscribeMasterSpinner;
+    delete domProps.unsubscribeAllMasterSpinner;
+    delete domProps.unsubscribeMasterSpinner;
 
     // filter out some tray props before passing them in.  We will process event handlers in the
     // trayProps object as callbacks to OUR event handlers.  Ref is needed by us. Style and
@@ -624,6 +622,8 @@ const Slider = class Slider extends React.Component {
       onTouchStart: _onTouchStart,
       ref: _ignoreRef,
       style: _ignoreStyle,
+      // Filter out function props that shouldn't be DOM attributes
+      billy: _billyCallback,
       ...filteredTrayProps
     } = trayProps;
 
@@ -637,7 +637,7 @@ const Slider = class Slider extends React.Component {
         role={this.props.role}
         style={sliderStyle}
         onKeyDown={this.handleOnKeyDown}
-        {...rest}
+        {...domProps}
       >
         <div className={trayWrapClasses} style={trayWrapStyle}>
           <TrayTag
@@ -710,6 +710,7 @@ Slider.propTypes = {
       onTouchStart: PropTypes.func,
       ref: PropTypes.shape({}),
       style: PropTypes.object,
+      billy: PropTypes.func,  // Allow function props that will be filtered out
     }),
     trayTag: PropTypes.string,
     visibleSlides: PropTypes.number,

@@ -128,6 +128,35 @@ describe('Store', () => {
     carouselStore.masterSpinnerError('/home/poo.jpg');
     expect(carouselStore.isMasterSpinnerFinished()).toBe(true);
   });
+
+  it('updateSubscribers() should not call callback if none provided', () => {
+    const func1 = jest.fn();
+    carouselStore.subscribe(func1);
+    carouselStore.updateSubscribers(); // No callback provided
+    expect(func1).toHaveBeenCalledTimes(1);
+  });
+
+  it('setStoreState() should work with callback', () => {
+    const callback = jest.fn();
+    carouselStore.setStoreState({ testProp: 'testValue' }, callback);
+    expect(callback).toHaveBeenCalledWith(carouselStore.getStoreState());
+  });
+
+  it('unsubscribe() should handle non-existent function gracefully', () => {
+    const existingFunc = jest.fn();
+    const nonExistentFunc = jest.fn();
+    
+    carouselStore.subscribe(existingFunc);
+    expect(carouselStore.subscriptions.length).toBe(1);
+    
+    // Try to unsubscribe a function that was never subscribed
+    carouselStore.unsubscribe(nonExistentFunc);
+    expect(carouselStore.subscriptions.length).toBe(1); // Should remain unchanged
+    
+    // Unsubscribe the actual function
+    carouselStore.unsubscribe(existingFunc);
+    expect(carouselStore.subscriptions.length).toBe(0);
+  });
 });
 
 describe('WithStore', () => {

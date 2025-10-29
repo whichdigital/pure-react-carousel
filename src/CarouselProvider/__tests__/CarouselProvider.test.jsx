@@ -267,4 +267,14 @@ describe('<CarouselProvider />', () => {
       console.error = originalConsoleError;
     }
   });
+
+  it('should provide access to carouselStore via getStore() method', () => {
+    const wrapper = new CarouselProvider(props);
+    const store = wrapper.getStore();
+    
+    expect(store).toBeTruthy();
+    expect(typeof store.setStoreState).toBe('function');
+    expect(typeof store.subscribe).toBe('function');
+    expect(typeof store.unsubscribe).toBe('function');
+  });
 });
