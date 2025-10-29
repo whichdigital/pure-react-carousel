@@ -73,6 +73,10 @@
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-replace": "^6.0.3",
     "@rollup/plugin-terser": "^0.4.4",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/github": "^12.0.0",
+    "@semantic-release/npm": "^13.1.1",
+    "@semantic-release/release-notes-generator": "^14.1.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
@@ -96,7 +100,8 @@
     "rimraf": "^6.0.1",
     "rollup": "^4.27.4",
     "rollup-plugin-postcss": "^4.0.2",
-    "sass": "^1.81.0"
+    "sass": "^1.81.0",
+    "semantic-release": "^25.0.1"
   },
   "peerDependencies": {
     "react": "15.x || 16.x || 17.x || 18.x || 19.x",
