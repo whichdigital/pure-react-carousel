@@ -3,17 +3,7 @@ import PropTypes from 'prop-types';
 import s from './SliderComponent.css';
 
 
-export default class SlideComponent extends React.Component {
-  static propTypes = {
-    count: PropTypes.number.isRequired,
-    setIncrement: PropTypes.func.isRequired,
-    setDecrement: PropTypes.func.isRequired,
-    children: PropTypes.node,
-  };
-
-  static defaultProps = {
-    children: null,
-  }
+class SlideComponent extends React.Component {
 
   constructor() {
     super();
@@ -48,3 +38,16 @@ export default class SlideComponent extends React.Component {
     );
   }
 }
+
+SlideComponent.propTypes = {
+  count: PropTypes.number.isRequired,
+  setIncrement: PropTypes.func.isRequired,
+  setDecrement: PropTypes.func.isRequired,
+  children: PropTypes.node,
+};
+
+SlideComponent.defaultProps = {
+  children: null,
+};
+
+export default SlideComponent;

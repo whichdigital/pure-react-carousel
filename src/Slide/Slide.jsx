@@ -4,47 +4,6 @@ import { CarouselPropTypes, cn, pct } from '../helpers';
 import s from './Slide.scss';
 
 const Slide = class Slide extends React.PureComponent {
-  static propTypes = {
-    ariaLabel: PropTypes.string,
-    carouselStore: PropTypes.object,
-    children: CarouselPropTypes.children,
-    className: PropTypes.string,
-    classNameHidden: PropTypes.string,
-    classNameVisible: PropTypes.string,
-    currentSlide: PropTypes.number.isRequired,
-    index: PropTypes.number.isRequired,
-    innerClassName: PropTypes.string,
-    innerTag: PropTypes.string,
-    naturalSlideHeight: PropTypes.number.isRequired,
-    naturalSlideWidth: PropTypes.number.isRequired,
-    onBlur: PropTypes.func,
-    onFocus: PropTypes.func,
-    orientation: CarouselPropTypes.orientation.isRequired,
-    slideSize: PropTypes.number.isRequired,
-    role: PropTypes.string,
-    style: PropTypes.object,
-    tag: PropTypes.string,
-    totalSlides: PropTypes.number.isRequired,
-    visibleSlides: PropTypes.number.isRequired,
-    isIntrinsicHeight: PropTypes.bool,
-  }
-
-  static defaultProps = {
-    ariaLabel: 'slide',
-    carouselStore: null,
-    children: null,
-    className: null,
-    classNameHidden: null,
-    classNameVisible: null,
-    innerClassName: null,
-    innerTag: 'div',
-    onBlur: null,
-    onFocus: null,
-    role: 'option',
-    style: {},
-    tag: 'div',
-    isIntrinsicHeight: false,
-  }
 
   constructor(props) {
     super(props);
@@ -177,6 +136,48 @@ const Slide = class Slide extends React.PureComponent {
       </Tag>
     );
   }
+};
+
+Slide.propTypes = {
+    ariaLabel: PropTypes.string,
+    carouselStore: PropTypes.object,
+    children: CarouselPropTypes.children,
+    className: PropTypes.string,
+    classNameHidden: PropTypes.string,
+    classNameVisible: PropTypes.string,
+    currentSlide: PropTypes.number.isRequired,
+    index: PropTypes.number.isRequired,
+    innerClassName: PropTypes.string,
+    innerTag: PropTypes.string,
+    naturalSlideHeight: PropTypes.number.isRequired,
+    naturalSlideWidth: PropTypes.number.isRequired,
+    onBlur: PropTypes.func,
+    onFocus: PropTypes.func,
+    orientation: CarouselPropTypes.orientation.isRequired,
+    slideSize: PropTypes.number.isRequired,
+    role: PropTypes.string,
+    style: PropTypes.object,
+    tag: PropTypes.string,
+    totalSlides: PropTypes.number.isRequired,
+    visibleSlides: PropTypes.number.isRequired,
+    isIntrinsicHeight: PropTypes.bool,
+  };
+
+Slide.defaultProps = {
+  ariaLabel: 'slide',
+  carouselStore: null,
+  children: null,
+  className: null,
+  classNameHidden: null,
+  classNameVisible: null,
+  innerClassName: null,
+  innerTag: 'div',
+  onBlur: null,
+  onFocus: null,
+  role: 'option',
+  style: {},
+  tag: 'div',
+  isIntrinsicHeight: false,
 };
 
 export default Slide;

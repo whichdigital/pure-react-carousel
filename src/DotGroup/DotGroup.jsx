@@ -5,27 +5,6 @@ import { CarouselPropTypes, cn } from '../helpers';
 import s from './DotGroup.scss';
 
 const DotGroup = class DotGroup extends React.Component {
-  static propTypes = {
-    children: CarouselPropTypes.children,
-    className: PropTypes.string,
-    currentSlide: PropTypes.number.isRequired,
-    carouselStore: PropTypes.object.isRequired,
-    totalSlides: PropTypes.number.isRequired,
-    visibleSlides: PropTypes.number.isRequired,
-    dotNumbers: PropTypes.bool,
-    disableActiveDots: PropTypes.bool,
-    showAsSelectedForCurrentSlideOnly: PropTypes.bool,
-    renderDots: PropTypes.func,
-  }
-
-  static defaultProps = {
-    children: null,
-    className: null,
-    dotNumbers: false,
-    disableActiveDots: true,
-    showAsSelectedForCurrentSlideOnly: false,
-    renderDots: null,
-  }
 
   renderDots() {
     const {
@@ -91,5 +70,27 @@ const DotGroup = class DotGroup extends React.Component {
     );
   }
 };
+
+DotGroup.propTypes = {
+    children: CarouselPropTypes.children,
+    className: PropTypes.string,
+    currentSlide: PropTypes.number.isRequired,
+    carouselStore: PropTypes.object.isRequired,
+    totalSlides: PropTypes.number.isRequired,
+    visibleSlides: PropTypes.number.isRequired,
+    dotNumbers: PropTypes.bool,
+    disableActiveDots: PropTypes.bool,
+    showAsSelectedForCurrentSlideOnly: PropTypes.bool,
+    renderDots: PropTypes.func,
+  };
+
+DotGroup.defaultProps = {
+    children: null,
+    className: null,
+    dotNumbers: false,
+    disableActiveDots: true,
+    showAsSelectedForCurrentSlideOnly: false,
+    renderDots: null,
+  };
 
 export default DotGroup;

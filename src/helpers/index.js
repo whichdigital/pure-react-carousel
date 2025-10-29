@@ -66,3 +66,6 @@ export const boundedRange = ({ min, max, x }) => Math.min(
   max,
   Math.max(min, x),
 );
+
+// Export our custom object merge utility
+export { deepMerge, deepClone } from './objectMerge';

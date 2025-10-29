@@ -13,9 +13,7 @@ module.exports = {
   plugins: [
     '@babel/plugin-transform-class-properties',
     '@babel/plugin-transform-private-methods',
-    '@babel/plugin-transform-object-rest-spread',
-    '@babel/plugin-transform-object-assign',
-    '@babel/plugin-transform-runtime'
+    '@babel/plugin-transform-object-rest-spread'
   ],
   env: {
     test: {

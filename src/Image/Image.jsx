@@ -6,34 +6,6 @@ import {
 import s from './Image.scss';
 
 class Image extends React.Component {
-  static propTypes = {
-    alt: PropTypes.string,
-    carouselStore: PropTypes.object.isRequired,
-    children: CarouselPropTypes.children,
-    className: PropTypes.string,
-    hasMasterSpinner: PropTypes.bool.isRequired,
-    isBgImage: CarouselPropTypes.isBgImage,
-    onError: PropTypes.func,
-    onLoad: PropTypes.func,
-    renderError: PropTypes.func,
-    renderLoading: PropTypes.func,
-    src: PropTypes.string.isRequired,
-    style: PropTypes.object,
-    tag: PropTypes.string,
-  };
-
-  static defaultProps = {
-    alt: '',
-    children: null,
-    className: null,
-    isBgImage: false,
-    onError: null,
-    onLoad: null,
-    renderError: null,
-    renderLoading: null,
-    style: null,
-    tag: 'img',
-  };
 
   static subscribeMasterSpinner(props) {
     if (props.hasMasterSpinner) {
@@ -53,6 +25,7 @@ class Image extends React.Component {
     this.handleImageLoad = this.handleImageLoad.bind(this);
     this.handleImageError = this.handleImageError.bind(this);
     this.image = null;
+    this.hasWarnedAboutBgImageTag = false;
   }
 
   componentDidMount() {
@@ -110,7 +83,14 @@ class Image extends React.Component {
   }
 
   tempTag() {
-    return this.props.tag === 'img' ? 'div' : this.props.tag;
+    // Use div instead of img if:
+    // 1. isBgImage is true and tag is img (background images need div)
+    // 2. We have custom render functions that need to render content (img can't have children)
+    if (this.props.tag === 'img') {
+      if (this.props.isBgImage) return 'div';
+      if (this.props.renderLoading || this.props.renderError || this.props.children) return 'div';
+    }
+    return this.props.tag;
   }
 
   customRender(propName) {
@@ -157,7 +137,8 @@ class Image extends React.Component {
   }
 
   renderSuccess(filteredProps) {
-    const { style, tag: Tag } = this.props;
+    const { style } = this.props;
+    const Tag = this.tempTag();
     const newClassName = cn([
       s.image,
       'carousel__image',
@@ -202,6 +183,12 @@ class Image extends React.Component {
       ...filteredProps
     } = this.props;
 
+    // Warn about incompatible isBgImage and img tag combination (only once per instance)
+    if (this.props.isBgImage && this.props.tag === 'img' && !this.hasWarnedAboutBgImageTag) {
+      console.error('Image component: isBgImage prop cannot be used with img tag. Automatically switching to div tag.');
+      this.hasWarnedAboutBgImageTag = true;
+    }
+
     switch (this.state.imageStatus) {
       case LOADING:
         return this.renderLoading(filteredProps);
@@ -214,5 +201,34 @@ class Image extends React.Component {
     }
   }
 }
+
+Image.propTypes = {
+  alt: PropTypes.string,
+  carouselStore: PropTypes.object.isRequired,
+  children: CarouselPropTypes.children,
+  className: PropTypes.string,
+  hasMasterSpinner: PropTypes.bool.isRequired,
+  isBgImage: CarouselPropTypes.isBgImage,
+  onError: PropTypes.func,
+  onLoad: PropTypes.func,
+  renderError: PropTypes.func,
+  renderLoading: PropTypes.func,
+  src: PropTypes.string.isRequired,
+  style: PropTypes.object,
+  tag: PropTypes.string,
+};
+
+Image.defaultProps = {
+  alt: '',
+  children: null,
+  className: null,
+  isBgImage: false,
+  onError: null,
+  onLoad: null,
+  renderError: null,
+  renderLoading: null,
+  style: null,
+  tag: 'img',
+};
 
 export default Image;

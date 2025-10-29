@@ -4,26 +4,6 @@ import { CarouselPropTypes, cn } from '../helpers';
 import s from './Dot.scss';
 
 const Dot = class Dot extends React.Component {
-  static propTypes = {
-    carouselStore: PropTypes.object.isRequired,
-    children: CarouselPropTypes.children,
-    className: PropTypes.string,
-    currentSlide: PropTypes.number.isRequired,
-    disabled: PropTypes.bool,
-    onClick: PropTypes.func,
-    selected: PropTypes.bool,
-    slide: PropTypes.number.isRequired,
-    totalSlides: PropTypes.number.isRequired,
-    visibleSlides: PropTypes.number.isRequired,
-  }
-
-  static defaultProps = {
-    children: null,
-    className: null,
-    disabled: null,
-    onClick: null,
-    selected: null,
-  }
 
   constructor(props) {
     super(props);
@@ -74,6 +54,27 @@ const Dot = class Dot extends React.Component {
       </button>
     );
   }
+};
+
+Dot.propTypes = {
+  carouselStore: PropTypes.object.isRequired,
+  children: CarouselPropTypes.children,
+  className: PropTypes.string,
+  currentSlide: PropTypes.number.isRequired,
+  disabled: PropTypes.bool,
+  onClick: PropTypes.func,
+  selected: PropTypes.bool,
+  slide: PropTypes.number.isRequired,
+  totalSlides: PropTypes.number.isRequired,
+  visibleSlides: PropTypes.number.isRequired,
+};
+
+Dot.defaultProps = {
+  children: null,
+  className: null,
+  disabled: null,
+  onClick: null,
+  selected: null,
 };
 
 export default Dot;

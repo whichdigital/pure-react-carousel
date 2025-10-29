@@ -4,21 +4,6 @@ import s from './ButtonFirst.scss';
 import { CarouselPropTypes, cn } from '../helpers';
 
 const ButtonFirst = class ButtonFirst extends React.Component {
-  static propTypes = {
-    carouselStore: PropTypes.object.isRequired,
-    children: CarouselPropTypes.children.isRequired,
-    className: PropTypes.string,
-    currentSlide: PropTypes.number.isRequired,
-    disabled: PropTypes.bool,
-    onClick: PropTypes.func,
-    totalSlides: PropTypes.number.isRequired,
-  }
-
-  static defaultProps = {
-    className: null,
-    disabled: null,
-    onClick: null,
-  }
 
   constructor() {
     super();
@@ -66,5 +51,21 @@ const ButtonFirst = class ButtonFirst extends React.Component {
     );
   }
 };
+
+ButtonFirst.propTypes = {
+    carouselStore: PropTypes.object.isRequired,
+    children: CarouselPropTypes.children.isRequired,
+    className: PropTypes.string,
+    currentSlide: PropTypes.number.isRequired,
+    disabled: PropTypes.bool,
+    onClick: PropTypes.func,
+    totalSlides: PropTypes.number.isRequired,
+  };
+
+ButtonFirst.defaultProps = {
+    className: null,
+    disabled: null,
+    onClick: null,
+  };
 
 export default ButtonFirst;

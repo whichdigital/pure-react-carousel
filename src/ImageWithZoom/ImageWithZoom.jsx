@@ -10,37 +10,6 @@ const MOUSE_SCALE = 2;
 const MAX_TOUCH_SCALE = 3;
 
 const ImageWithZoom = class ImageWithZoom extends React.Component {
-  static propTypes = {
-    alt: PropTypes.string,
-    bgImageProps: PropTypes.object,
-    bgImageTag: PropTypes.string,
-    carouselStore: PropTypes.object.isRequired,
-    className: PropTypes.string,
-    imageClassName: PropTypes.string,
-    overlayClassName: PropTypes.string,
-    spinner: PropTypes.func,
-    onLoad: PropTypes.func,
-    onError: PropTypes.func,
-    src: PropTypes.string.isRequired,
-    srcZoomed: PropTypes.string,
-    tag: PropTypes.string,
-    isPinchZoomEnabled: PropTypes.bool,
-  }
-
-  static defaultProps = {
-    alt: undefined,
-    bgImageProps: {},
-    bgImageTag: 'div',
-    className: null,
-    imageClassName: null,
-    overlayClassName: null,
-    isPinchZoomEnabled: true,
-    spinner: null,
-    onLoad: null,
-    onError: null,
-    srcZoomed: null,
-    tag: 'div',
-  }
 
   /**
    * Find the midpoint between two touches.
@@ -363,6 +332,38 @@ const ImageWithZoom = class ImageWithZoom extends React.Component {
       </Tag>
     );
   }
+};
+
+ImageWithZoom.propTypes = {
+    alt: PropTypes.string,
+    bgImageProps: PropTypes.object,
+    bgImageTag: PropTypes.string,
+    carouselStore: PropTypes.object.isRequired,
+    className: PropTypes.string,
+    imageClassName: PropTypes.string,
+    overlayClassName: PropTypes.string,
+    spinner: PropTypes.func,
+    onLoad: PropTypes.func,
+    onError: PropTypes.func,
+    src: PropTypes.string.isRequired,
+    srcZoomed: PropTypes.string,
+    tag: PropTypes.string,
+    isPinchZoomEnabled: PropTypes.bool,
+  };
+
+ImageWithZoom.defaultProps = {
+  alt: undefined,
+  bgImageTag: 'div',
+  className: null,
+  imageClassName: null,
+  overlayClassName: null,
+  isPinchZoomEnabled: true,
+  spinner: null,
+  onLoad: null,
+  onError: null,
+  srcZoomed: null,
+  tag: 'div',
+  bgImageProps: {},
 };
 
 export default ImageWithZoom;

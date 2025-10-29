@@ -4,25 +4,6 @@ import { CarouselPropTypes, cn } from '../helpers';
 import s from './ButtonNext.scss';
 
 const ButtonNext = class ButtonNext extends React.PureComponent {
-  static propTypes = {
-    carouselStore: PropTypes.object.isRequired,
-    children: CarouselPropTypes.children.isRequired,
-    className: PropTypes.string,
-    currentSlide: PropTypes.number.isRequired,
-    disabled: PropTypes.bool,
-    onClick: PropTypes.func,
-    step: PropTypes.number.isRequired,
-    totalSlides: PropTypes.number.isRequired,
-    visibleSlides: PropTypes.number.isRequired,
-    infinite: PropTypes.bool,
-  };
-
-  static defaultProps = {
-    className: null,
-    disabled: null,
-    onClick: null,
-    infinite: false,
-  };
 
   static setDisabled(disabled, currentSlide, visibleSlides, totalSlides, infinite) {
     if (disabled !== null) return disabled;
@@ -99,5 +80,25 @@ const ButtonNext = class ButtonNext extends React.PureComponent {
     );
   }
 };
+
+ButtonNext.propTypes = {
+    carouselStore: PropTypes.object.isRequired,
+    children: CarouselPropTypes.children.isRequired,
+    className: PropTypes.string,
+    currentSlide: PropTypes.number.isRequired,
+    disabled: PropTypes.bool,
+    onClick: PropTypes.func,
+    step: PropTypes.number.isRequired,
+    totalSlides: PropTypes.number.isRequired,
+    visibleSlides: PropTypes.number.isRequired,
+    infinite: PropTypes.bool,
+  };
+
+ButtonNext.defaultProps = {
+    className: null,
+    disabled: null,
+    onClick: null,
+    infinite: false,
+  };
 
 export default ButtonNext;

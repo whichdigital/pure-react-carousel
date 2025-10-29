@@ -7,53 +7,6 @@ import {
 } from '../helpers';
 
 const CarouselProvider = class CarouselProvider extends React.Component {
-  static propTypes = {
-    children: CarouselPropTypes.children.isRequired,
-    className: PropTypes.string,
-    currentSlide: PropTypes.number,
-    disableAnimation: PropTypes.bool,
-    disableKeyboard: PropTypes.bool,
-    hasMasterSpinner: PropTypes.bool,
-    interval: PropTypes.number,
-    isPageScrollLocked: PropTypes.bool,
-    isPlaying: PropTypes.bool,
-    lockOnWindowScroll: PropTypes.bool,
-    naturalSlideHeight: PropTypes.number.isRequired,
-    naturalSlideWidth: PropTypes.number.isRequired,
-    orientation: CarouselPropTypes.orientation,
-    playDirection: CarouselPropTypes.direction,
-    step: PropTypes.number,
-    dragStep: PropTypes.number,
-    tag: PropTypes.string,
-    totalSlides: PropTypes.number.isRequired,
-    touchEnabled: PropTypes.bool,
-    dragEnabled: PropTypes.bool,
-    visibleSlides: PropTypes.number,
-    infinite: PropTypes.bool,
-    isIntrinsicHeight: PropTypes.bool,
-  };
-
-  static defaultProps = {
-    className: null,
-    currentSlide: 0,
-    disableAnimation: false,
-    disableKeyboard: false,
-    hasMasterSpinner: false,
-    interval: 5000,
-    isPageScrollLocked: false,
-    isPlaying: false,
-    lockOnWindowScroll: false,
-    orientation: 'horizontal',
-    playDirection: 'forward',
-    step: 1,
-    dragStep: 1,
-    tag: 'div',
-    touchEnabled: true,
-    dragEnabled: true,
-    visibleSlides: 1,
-    infinite: false,
-    isIntrinsicHeight: false,
-  };
 
   constructor(props) {
     super(props);
@@ -209,6 +162,54 @@ const CarouselProvider = class CarouselProvider extends React.Component {
       </Tag>
     );
   }
+};
+
+CarouselProvider.propTypes = {
+  children: CarouselPropTypes.children.isRequired,
+  className: PropTypes.string,
+  currentSlide: PropTypes.number,
+  disableAnimation: PropTypes.bool,
+  disableKeyboard: PropTypes.bool,
+  hasMasterSpinner: PropTypes.bool,
+  interval: PropTypes.number,
+  isPageScrollLocked: PropTypes.bool,
+  isPlaying: PropTypes.bool,
+  lockOnWindowScroll: PropTypes.bool,
+  naturalSlideHeight: PropTypes.number.isRequired,
+  naturalSlideWidth: PropTypes.number.isRequired,
+  orientation: CarouselPropTypes.orientation,
+  playDirection: CarouselPropTypes.direction,
+  step: PropTypes.number,
+  dragStep: PropTypes.number,
+  tag: PropTypes.string,
+  totalSlides: PropTypes.number.isRequired,
+  touchEnabled: PropTypes.bool,
+  dragEnabled: PropTypes.bool,
+  visibleSlides: PropTypes.number,
+  infinite: PropTypes.bool,
+  isIntrinsicHeight: PropTypes.bool,
+};
+
+CarouselProvider.defaultProps = {
+  className: null,
+  currentSlide: 0,
+  disableAnimation: false,
+  disableKeyboard: false,
+  hasMasterSpinner: false,
+  interval: 5000,
+  isPageScrollLocked: false,
+  isPlaying: false,
+  lockOnWindowScroll: false,
+  orientation: 'horizontal',
+  playDirection: 'forward',
+  step: 1,
+  dragStep: 1,
+  tag: 'div',
+  touchEnabled: true,
+  dragEnabled: true,
+  visibleSlides: 1,
+  infinite: false,
+  isIntrinsicHeight: false,
 };
 
 export default CarouselProvider;

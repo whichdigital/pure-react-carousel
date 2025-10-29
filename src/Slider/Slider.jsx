@@ -8,84 +8,6 @@ import {
 import s from './Slider.scss';
 
 const Slider = class Slider extends React.Component {
-  static propTypes = {
-    ariaLabel: PropTypes.string,
-    carouselStore: PropTypes.object.isRequired,
-    children: PropTypes.node.isRequired,
-    className: PropTypes.string,
-    classNameAnimation: PropTypes.string,
-    classNameTray: PropTypes.string,
-    classNameTrayWrap: PropTypes.string,
-    currentSlide: PropTypes.number.isRequired,
-    disableAnimation: PropTypes.bool,
-    disableKeyboard: PropTypes.bool,
-    dragEnabled: PropTypes.bool.isRequired,
-    dragStep: PropTypes.number,
-    hasMasterSpinner: PropTypes.bool.isRequired,
-    infinite: PropTypes.bool,
-    interval: PropTypes.number.isRequired,
-    isPageScrollLocked: PropTypes.bool.isRequired,
-    isPlaying: PropTypes.bool.isRequired,
-    lockOnWindowScroll: PropTypes.bool.isRequired,
-    preventVerticalScrollOnTouch: PropTypes.bool,
-    horizontalPixelThreshold: PropTypes.number,
-    verticalPixelThreshold: PropTypes.number,
-    masterSpinnerFinished: PropTypes.bool.isRequired,
-    moveThreshold: PropTypes.number,
-    naturalSlideHeight: PropTypes.number.isRequired,
-    naturalSlideWidth: PropTypes.number.isRequired,
-    onMasterSpinner: PropTypes.func,
-    orientation: CarouselPropTypes.orientation.isRequired,
-    playDirection: CarouselPropTypes.direction.isRequired,
-    privateUnDisableAnimation: PropTypes.bool,
-    role: PropTypes.string,
-    slideSize: PropTypes.number.isRequired,
-    slideTraySize: PropTypes.number.isRequired,
-    spinner: PropTypes.func,
-    step: PropTypes.number.isRequired,
-    style: PropTypes.object,
-    totalSlides: PropTypes.number.isRequired,
-    touchEnabled: PropTypes.bool.isRequired,
-    trayProps: PropTypes.shape({
-      className: PropTypes.string,
-      onClickCapture: PropTypes.func,
-      onMouseDown: PropTypes.func,
-      onTouchCancel: PropTypes.func,
-      onTouchEnd: PropTypes.func,
-      onTouchMove: PropTypes.func,
-      onTouchStart: PropTypes.func,
-      ref: PropTypes.shape({}),
-      style: PropTypes.string,
-    }),
-    trayTag: PropTypes.string,
-    visibleSlides: PropTypes.number,
-    isIntrinsicHeight: PropTypes.bool,
-  }
-
-  static defaultProps = {
-    ariaLabel: 'slider',
-    className: null,
-    classNameAnimation: null,
-    classNameTray: null,
-    classNameTrayWrap: null,
-    disableAnimation: false,
-    disableKeyboard: false,
-    dragStep: 1,
-    infinite: false,
-    preventVerticalScrollOnTouch: true,
-    horizontalPixelThreshold: 15,
-    verticalPixelThreshold: 10,
-    moveThreshold: 0.1,
-    onMasterSpinner: null,
-    privateUnDisableAnimation: false,
-    role: 'listbox',
-    spinner: null,
-    style: {},
-    trayProps: {},
-    trayTag: 'div',
-    visibleSlides: 1,
-    isIntrinsicHeight: false,
-  }
 
   static slideSizeInPx(orientation, sliderTrayWidth, sliderTrayHeight, totalSlides) {
     return (orientation === 'horizontal' ? sliderTrayWidth : sliderTrayHeight) / totalSlides;
@@ -591,6 +513,14 @@ const Slider = class Slider extends React.Component {
       trayTag: TrayTag,
       visibleSlides,
       isIntrinsicHeight,
+      // Additional props that should not be passed to DOM elements
+      step: _step,
+      dragStep: _dragStep,
+      infinite: _infinite,
+      preventVerticalScrollOnTouch: _preventVerticalScrollOnTouch,
+      preventingVerticalScroll: _preventingVerticalScroll,
+      horizontalPixelThreshold: _horizontalPixelThreshold,
+      verticalPixelThreshold: _verticalPixelThreshold,
       ...props
     } = this.props;
 
@@ -657,15 +587,16 @@ const Slider = class Slider extends React.Component {
     ]);
 
 
-    // remove invalid div attributes
+    // Filter out any remaining carousel-specific props that shouldn't be passed to DOM
     const {
-      dragStep: _dragStep,
-      step: _step,
-      infinite: _infinite,
-      preventVerticalScrollOnTouch: _preventVerticalScrollOnTouch,
-      preventingVerticalScroll: _preventingVerticalScroll,
-      horizontalPixelThreshold: _horizontalPixelThreshold,
-      verticalPixelThreshold: _verticalPixelThreshold,
+      // Props that might be added by tests or WithStore that need filtering
+      getStoreState: _getStoreState,
+      masterSpinnerError: _masterSpinnerError2,
+      masterSpinnerSuccess: _masterSpinnerSuccess2,
+      setStoreState: _setStoreState2,
+      subscribeMasterSpinner: _subscribeMasterSpinner2,
+      unsubscribeAllMasterSpinner: _unsubscribeAllMasterSpinner2,
+      unsubscribeMasterSpinner: _unsubscribeMasterSpinner2,
       ...rest
     } = props;
 
@@ -719,6 +650,84 @@ const Slider = class Slider extends React.Component {
       </div>
     );
   }
+};
+
+Slider.propTypes = {
+    ariaLabel: PropTypes.string,
+    carouselStore: PropTypes.object.isRequired,
+    children: PropTypes.node.isRequired,
+    className: PropTypes.string,
+    classNameAnimation: PropTypes.string,
+    classNameTray: PropTypes.string,
+    classNameTrayWrap: PropTypes.string,
+    currentSlide: PropTypes.number.isRequired,
+    disableAnimation: PropTypes.bool,
+    disableKeyboard: PropTypes.bool,
+    dragEnabled: PropTypes.bool.isRequired,
+    dragStep: PropTypes.number,
+    hasMasterSpinner: PropTypes.bool.isRequired,
+    infinite: PropTypes.bool,
+    interval: PropTypes.number.isRequired,
+    isPageScrollLocked: PropTypes.bool.isRequired,
+    isPlaying: PropTypes.bool.isRequired,
+    lockOnWindowScroll: PropTypes.bool.isRequired,
+    preventVerticalScrollOnTouch: PropTypes.bool,
+    horizontalPixelThreshold: PropTypes.number,
+    verticalPixelThreshold: PropTypes.number,
+    masterSpinnerFinished: PropTypes.bool.isRequired,
+    moveThreshold: PropTypes.number,
+    naturalSlideHeight: PropTypes.number.isRequired,
+    naturalSlideWidth: PropTypes.number.isRequired,
+    onMasterSpinner: PropTypes.func,
+    orientation: CarouselPropTypes.orientation.isRequired,
+    playDirection: CarouselPropTypes.direction.isRequired,
+    privateUnDisableAnimation: PropTypes.bool,
+    role: PropTypes.string,
+    slideSize: PropTypes.number.isRequired,
+    slideTraySize: PropTypes.number.isRequired,
+    spinner: PropTypes.func,
+    step: PropTypes.number.isRequired,
+    style: PropTypes.object,
+    totalSlides: PropTypes.number.isRequired,
+    touchEnabled: PropTypes.bool.isRequired,
+    trayProps: PropTypes.shape({
+      className: PropTypes.string,
+      onClickCapture: PropTypes.func,
+      onMouseDown: PropTypes.func,
+      onTouchCancel: PropTypes.func,
+      onTouchEnd: PropTypes.func,
+      onTouchMove: PropTypes.func,
+      onTouchStart: PropTypes.func,
+      ref: PropTypes.shape({}),
+    }),
+    trayTag: PropTypes.string,
+    visibleSlides: PropTypes.number,
+    isIntrinsicHeight: PropTypes.bool,
+  };
+
+Slider.defaultProps = {
+  ariaLabel: 'slider',
+  className: null,
+  classNameAnimation: null,
+  classNameTray: null,
+  classNameTrayWrap: null,
+  disableAnimation: false,
+  disableKeyboard: false,
+  dragStep: 1,
+  infinite: false,
+  preventVerticalScrollOnTouch: true,
+  horizontalPixelThreshold: 15,
+  verticalPixelThreshold: 10,
+  moveThreshold: 0.1,
+  onMasterSpinner: null,
+  privateUnDisableAnimation: false,
+  role: 'listbox',
+  spinner: null,
+  style: {},
+  trayProps: {},
+  trayTag: 'div',
+  visibleSlides: 1,
+  isIntrinsicHeight: false,
 };
 
 export default Slider;

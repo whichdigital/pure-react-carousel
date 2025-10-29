@@ -1,6 +1,5 @@
 import React from 'react';
 import equal from 'equals';
-import deepMerge from 'deepmerge';
 import { CarouselPropTypes } from '../helpers';
 import { CarouselContext } from '../CarouselProvider';
 
@@ -10,14 +9,6 @@ export default function WithStore(
 ) {
   class Wrapper extends React.Component {
     static contextType = CarouselContext
-
-    static propTypes = {
-      children: CarouselPropTypes.children,
-    };
-
-    static defaultProps = {
-      children: null,
-    };
 
     constructor(props, context) {
       super(props, context);
@@ -43,7 +34,8 @@ export default function WithStore(
     }
 
     render() {
-      const props = deepMerge(this.state, this.props);
+      // Use shallow merge for React props to avoid circular references
+      const props = { ...this.state, ...this.props };
 
       return (
         <WrappedComponent
@@ -66,6 +58,14 @@ export default function WithStore(
       );
     }
   }
+
+  Wrapper.propTypes = {
+    children: CarouselPropTypes.children,
+  };
+
+  Wrapper.defaultProps = {
+    children: null,
+  };
 
   return Wrapper;
 }

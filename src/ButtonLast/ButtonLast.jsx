@@ -4,22 +4,6 @@ import s from './ButtonLast.scss';
 import { CarouselPropTypes, cn } from '../helpers';
 
 const ButtonLast = class ButtonLast extends React.Component {
-  static propTypes = {
-    carouselStore: PropTypes.object.isRequired,
-    children: CarouselPropTypes.children.isRequired,
-    className: PropTypes.string,
-    currentSlide: PropTypes.number.isRequired,
-    disabled: PropTypes.bool,
-    onClick: PropTypes.func,
-    totalSlides: PropTypes.number.isRequired,
-    visibleSlides: PropTypes.number.isRequired,
-  };
-
-  static defaultProps = {
-    className: null,
-    disabled: null,
-    onClick: null,
-  };
 
   constructor() {
     super();
@@ -69,5 +53,22 @@ const ButtonLast = class ButtonLast extends React.Component {
     );
   }
 };
+
+ButtonLast.propTypes = {
+    carouselStore: PropTypes.object.isRequired,
+    children: CarouselPropTypes.children.isRequired,
+    className: PropTypes.string,
+    currentSlide: PropTypes.number.isRequired,
+    disabled: PropTypes.bool,
+    onClick: PropTypes.func,
+    totalSlides: PropTypes.number.isRequired,
+    visibleSlides: PropTypes.number.isRequired,
+  };
+
+ButtonLast.defaultProps = {
+    className: null,
+    disabled: null,
+    onClick: null,
+  };
 
 export default ButtonLast;

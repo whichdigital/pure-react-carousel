@@ -4,13 +4,6 @@ import { cn } from '../helpers';
 import s from './Spinner.scss';
 
 const Spinner = class Spinner extends React.PureComponent {
-  static propTypes = {
-    className: PropTypes.string,
-  }
-
-  static defaultProps = {
-    className: null,
-  }
 
   render() {
     const { className, ...filteredProps } = this.props;
@@ -20,5 +13,13 @@ const Spinner = class Spinner extends React.PureComponent {
     );
   }
 };
+
+Spinner.propTypes = {
+    className: PropTypes.string,
+  };
+
+Spinner.defaultProps = {
+    className: null,
+  };
 
 export default Spinner;

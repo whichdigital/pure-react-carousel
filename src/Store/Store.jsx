@@ -1,5 +1,5 @@
-import deepMerge from 'deepmerge';
 import deepFreeze from 'deep-freeze';
+import { deepMerge } from '../helpers';
 
 const DEFAULT_STATE = {
   masterSpinnerFinished: false,

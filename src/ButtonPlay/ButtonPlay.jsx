@@ -4,23 +4,6 @@ import { cn } from '../helpers';
 import s from './ButtonPlay.scss';
 
 const ButtonPlay = class ButtonPlay extends React.PureComponent {
-  static propTypes = {
-    carouselStore: PropTypes.object.isRequired,
-    children: PropTypes.node,
-    childrenPaused: PropTypes.node,
-    childrenPlaying: PropTypes.node,
-    className: PropTypes.string,
-    isPlaying: PropTypes.bool.isRequired,
-    onClick: PropTypes.func,
-  };
-
-  static defaultProps = {
-    children: null,
-    childrenPaused: null,
-    childrenPlaying: null,
-    className: null,
-    onClick: null,
-  }
 
   constructor(props) {
     super(props);
@@ -67,5 +50,23 @@ const ButtonPlay = class ButtonPlay extends React.PureComponent {
     );
   }
 };
+
+ButtonPlay.propTypes = {
+    carouselStore: PropTypes.object.isRequired,
+    children: PropTypes.node,
+    childrenPaused: PropTypes.node,
+    childrenPlaying: PropTypes.node,
+    className: PropTypes.string,
+    isPlaying: PropTypes.bool.isRequired,
+    onClick: PropTypes.func,
+  };
+
+ButtonPlay.defaultProps = {
+    children: null,
+    childrenPaused: null,
+    childrenPlaying: null,
+    className: null,
+    onClick: null,
+  };
 
 export default ButtonPlay;

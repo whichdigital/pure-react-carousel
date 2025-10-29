@@ -3,26 +3,7 @@ import PropTypes from 'prop-types';
 import { CarouselPropTypes, cn } from '../helpers';
 import s from './ButtonBack.scss';
 
-export default class ButtonBack extends React.Component {
-  static propTypes = {
-    carouselStore: PropTypes.object.isRequired,
-    children: CarouselPropTypes.children.isRequired,
-    className: PropTypes.string,
-    currentSlide: PropTypes.number.isRequired,
-    disabled: PropTypes.bool,
-    onClick: PropTypes.func,
-    step: PropTypes.number.isRequired,
-    totalSlides: PropTypes.number.isRequired,
-    visibleSlides: PropTypes.number.isRequired,
-    infinite: PropTypes.bool,
-  };
-
-  static defaultProps = {
-    className: null,
-    disabled: null,
-    onClick: null,
-    infinite: false,
-  };
+class ButtonBack extends React.Component {
 
   static setDisabled(disabled, currentSlide, infinite) {
     if (disabled !== null) return disabled;
@@ -96,3 +77,25 @@ export default class ButtonBack extends React.Component {
     );
   }
 }
+
+ButtonBack.propTypes = {
+  carouselStore: PropTypes.object.isRequired,
+  children: CarouselPropTypes.children.isRequired,
+  className: PropTypes.string,
+  currentSlide: PropTypes.number.isRequired,
+  disabled: PropTypes.bool,
+  onClick: PropTypes.func,
+  step: PropTypes.number.isRequired,
+  totalSlides: PropTypes.number.isRequired,
+  visibleSlides: PropTypes.number.isRequired,
+  infinite: PropTypes.bool,
+};
+
+ButtonBack.defaultProps = {
+  className: null,
+  disabled: null,
+  onClick: null,
+  infinite: false,
+};
+
+export default ButtonBack;
