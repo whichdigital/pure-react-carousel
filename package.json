@@ -109,6 +109,9 @@
     "equals": "^1.0.5",
     "prop-types": "^15.8.1"
   },
+  "overrides": {
+    "svgo": "^4.0.0"
+  },
   "jest": {
     "testEnvironment": "jsdom",
     "extensionsToTreatAsEsm": [
