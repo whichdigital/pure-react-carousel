@@ -67,5 +67,19 @@ export const boundedRange = ({ min, max, x }) => Math.min(
   Math.max(min, x),
 );
 
+// Safe merge utilities for React 19 compatibility
+export const safeArrayMerge = (destination, source) => source;
+
+export const safeMergeOptions = {
+  arrayMerge: safeArrayMerge,
+  clone: false,
+  customMerge: (key) => {
+    if (key === '$$typeof' || key === '_owner' || key === '_store' || key === 'ref' || key === 'key') {
+      return (target, source) => source;
+    }
+    return undefined;
+  },
+};
+
 // Export our custom object merge utility
 export { deepMerge, deepClone } from './objectMerge';

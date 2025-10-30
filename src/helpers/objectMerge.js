@@ -94,13 +94,24 @@ function deepMerge(target, source, options = {}) {
       const sourceValue = source[key];
       const targetValue = result[key];
       
+      // Check if there's a custom merge function for this key
+      if (options.customMerge && typeof options.customMerge === 'function') {
+        const customMerger = options.customMerge(key);
+        if (customMerger && typeof customMerger === 'function') {
+          result[key] = customMerger(targetValue, sourceValue);
+          continue;
+        }
+      }
+      
       // If both values are plain objects, merge recursively
       if (isPlainObject(targetValue) && isPlainObject(sourceValue)) {
         result[key] = deepMerge(targetValue, sourceValue, options);
       }
       // If source value is an array, handle array merging
       else if (Array.isArray(sourceValue)) {
-        if (options.mergeArrays && Array.isArray(targetValue)) {
+        if (options.arrayMerge && typeof options.arrayMerge === 'function') {
+          result[key] = options.arrayMerge(targetValue, sourceValue);
+        } else if (options.mergeArrays && Array.isArray(targetValue)) {
           result[key] = [...targetValue, ...sourceValue];
         } else {
           result[key] = [...sourceValue]; // Clone the array

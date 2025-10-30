@@ -1,6 +1,6 @@
 import React from 'react';
 import equal from 'equals';
-import { CarouselPropTypes } from '../helpers';
+import { CarouselPropTypes, deepMerge, safeMergeOptions } from '../helpers';
 import { CarouselContext } from '../CarouselProvider';
 
 export default function WithStore(
@@ -46,8 +46,9 @@ export default function WithStore(
     }
 
     render() {
-      // Use shallow merge for React props to avoid circular references
-      const props = { ...this.state, ...this.props };
+      // Extract children separately to prevent circular references with React 19
+      const { children, ...propsWithoutChildren } = this.props;
+      const props = deepMerge(this.state, propsWithoutChildren, safeMergeOptions);
 
       if (!this.context) {
         throw new Error(
@@ -72,7 +73,7 @@ export default function WithStore(
             unsubscribeMasterSpinner: this.context.unsubscribeMasterSpinner,
           }}
         >
-          {this.props.children}
+          {children}
         </WrappedComponent>
       );
     }

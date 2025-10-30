@@ -526,6 +526,14 @@ const Slider = class Slider extends React.Component {
       preventingVerticalScroll: _preventingVerticalScroll,
       horizontalPixelThreshold: _horizontalPixelThreshold,
       verticalPixelThreshold: _verticalPixelThreshold,
+      // Store-related props that should not reach DOM
+      getStoreState: _getStoreState,
+      setStoreState: _setStoreState,
+      subscribeMasterSpinner: _subscribeMasterSpinner,
+      unsubscribeMasterSpinner: _unsubscribeMasterSpinner,
+      unsubscribeAllMasterSpinner: _unsubscribeAllMasterSpinner,
+      masterSpinnerError: _masterSpinnerError,
+      masterSpinnerSuccess: _masterSpinnerSuccess,
       ...remainingProps
     } = this.props;
 
@@ -595,7 +603,8 @@ const Slider = class Slider extends React.Component {
     // Create a clean props object by removing any carousel-specific properties that shouldn't go to DOM
     const domProps = { ...remainingProps };
     
-    // Explicitly remove carousel-specific props that might still be lingering
+    // Explicitly remove ALL carousel-specific props that should not reach DOM elements
+    // This is critical for React 19 compatibility
     delete domProps.carouselStore;
     delete domProps.masterSpinnerFinished;
     delete domProps.slideSize;
@@ -607,6 +616,36 @@ const Slider = class Slider extends React.Component {
     delete domProps.subscribeMasterSpinner;
     delete domProps.unsubscribeAllMasterSpinner;
     delete domProps.unsubscribeMasterSpinner;
+    
+    // Remove additional props that might come through
+    delete domProps.currentSlide;
+    delete domProps.totalSlides;
+    delete domProps.visibleSlides;
+    delete domProps.hasMasterSpinner;
+    delete domProps.interval;
+    delete domProps.isPlaying;
+    delete domProps.playDirection;
+    delete domProps.step;
+    delete domProps.dragStep;
+    delete domProps.dragEnabled;
+    delete domProps.infinite;
+    delete domProps.lockOnWindowScroll;
+    delete domProps.isPageScrollLocked;
+    delete domProps.naturalSlideHeight;
+    delete domProps.naturalSlideWidth;
+    delete domProps.orientation;
+    delete domProps.touchEnabled;
+    delete domProps.disableAnimation;
+    delete domProps.disableKeyboard;
+    delete domProps.privateUnDisableAnimation;
+    delete domProps.moveThreshold;
+    delete domProps.onMasterSpinner;
+    delete domProps.spinner;
+    delete domProps.preventVerticalScrollOnTouch;
+    delete domProps.preventingVerticalScroll;
+    delete domProps.horizontalPixelThreshold;
+    delete domProps.verticalPixelThreshold;
+    delete domProps.isIntrinsicHeight;
 
     // filter out some tray props before passing them in.  We will process event handlers in the
     // trayProps object as callbacks to OUR event handlers.  Ref is needed by us. Style and
@@ -715,6 +754,14 @@ Slider.propTypes = {
     trayTag: PropTypes.string,
     visibleSlides: PropTypes.number,
     isIntrinsicHeight: PropTypes.bool,
+    // Store-related function props
+    getStoreState: PropTypes.func,
+    setStoreState: PropTypes.func,
+    subscribeMasterSpinner: PropTypes.func,
+    unsubscribeMasterSpinner: PropTypes.func,
+    unsubscribeAllMasterSpinner: PropTypes.func,
+    masterSpinnerError: PropTypes.bool,
+    masterSpinnerSuccess: PropTypes.bool,
   };
 
 Slider.defaultProps = {
@@ -740,6 +787,14 @@ Slider.defaultProps = {
   trayTag: 'div',
   visibleSlides: 1,
   isIntrinsicHeight: false,
+  // Store-related function props defaults
+  getStoreState: null,
+  setStoreState: null,
+  subscribeMasterSpinner: null,
+  unsubscribeMasterSpinner: null,
+  unsubscribeAllMasterSpinner: null,
+  masterSpinnerError: false,
+  masterSpinnerSuccess: false,
 };
 
 export default Slider;
