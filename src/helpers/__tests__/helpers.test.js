@@ -94,9 +94,9 @@ describe('helpers', () => {
 
       // React internal keys should use source values
       expect(result.$$typeof).toBe('source-type');
-      // eslint-disable-next-line no-underscore-dangle
+       
       expect(result._owner).toBe('source-owner');
-      // eslint-disable-next-line no-underscore-dangle
+       
       expect(result._store).toBe('source-store');
       expect(result.ref).toBe('source-ref');
       expect(result.key).toBe('source-key');
