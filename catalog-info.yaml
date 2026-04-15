@@ -1,0 +1,57 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: pure-react-carousel
+  description: React component library for accessible, responsive carousel UI.
+  annotations:
+    github.com/project-slug: whichdigital/pure-react-carousel
+    backstage.io/source-location: url:https://github.com/whichdigital/pure-react-carousel/tree/master
+  links:
+    - title: GitHub Repository
+      url: https://github.com/whichdigital/pure-react-carousel
+      icon: github
+    - title: CI/CD Pipeline
+      url: https://github.com/whichdigital/pure-react-carousel/actions/workflows/release.yml
+      icon: dashboard
+  tags:
+    - library
+    - react
+    - npm
+    - carousel
+spec:
+  type: library
+  lifecycle: production
+  owner: group:core
+  system: pure-react-carousel
+  dependsOn:
+    - resource:pure-react-carousel-npm-package
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: pure-react-carousel-npm-package
+  description: Published npm package @which/pure-react-carousel.
+  annotations:
+    github.com/project-slug: whichdigital/pure-react-carousel
+  tags:
+    - npm
+    - package
+spec:
+  type: npm-package
+  lifecycle: production
+  owner: group:core
+  system: pure-react-carousel
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: pure-react-carousel
+  description: Which? React carousel library used by frontend applications and design-system consumers.
+  annotations:
+    github.com/project-slug: whichdigital/pure-react-carousel
+  tags:
+    - react
+    - carousel
+    - design-system
+spec:
+  owner: group:core
