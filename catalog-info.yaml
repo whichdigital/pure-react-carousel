@@ -21,7 +21,7 @@ metadata:
 spec:
   type: library
   lifecycle: production
-  owner: group:core
+  owner: group:github/core
   system: pure-react-carousel
   dependsOn:
     - resource:pure-react-carousel-npm-package
@@ -39,7 +39,7 @@ metadata:
 spec:
   type: npm-package
   lifecycle: production
-  owner: group:core
+  owner: group:github/core
   system: pure-react-carousel
 ---
 apiVersion: backstage.io/v1alpha1
@@ -54,4 +54,4 @@ metadata:
     - carousel
     - design-system
 spec:
-  owner: group:core
+  owner: group:github/core
